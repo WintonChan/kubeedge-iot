@@ -1,0 +1,164 @@
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceclaims
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceclaims/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceclaims/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceprofiles
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceprofiles/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceprofiles/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - devices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - devices/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - devices/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceservices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceservices/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - deviceservices/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - devicevisitors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - devicevisitors/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - devicevisitors/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - edgexmanagers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - edgexmanagers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devices.kubeedge.io
+  resources:
+  - edgexmanagers/status
+  verbs:
+  - get
+  - patch
+  - update

@@ -1,0 +1,36 @@
+# This kustomization.yaml is not intended to be run by itself,
+# since it depends on service name and namespace that are out of this kustomize package.
+# It should be run by config/default
+resources:
+- bases/devices.kubeedge.io_devices.yaml
+- bases/devices.kubeedge.io_deviceclaims.yaml
+- bases/devices.kubeedge.io_deviceservices.yaml
+- bases/devices.kubeedge.io_devicemodels.yaml
+- bases/devices.kubeedge.io_devicevisitors.yaml
+- bases/devices.kubeedge.io_edgexmanagers.yaml
+#+kubebuilder:scaffold:crdkustomizeresource
+
+patchesStrategicMerge:
+# [WEBHOOK] To enable webhook, uncomment all the sections with [WEBHOOK] prefix.
+# patches here are for enabling the conversion webhook for each CRD
+#- patches/webhook_in_devices.yaml
+#- patches/webhook_in_deviceclaims.yaml
+#- patches/webhook_in_deviceservices.yaml
+#- patches/webhook_in_devicemodels.yaml
+#- patches/webhook_in_devicevisitors.yaml
+#- patches/webhook_in_edgexmanagers.yaml
+#+kubebuilder:scaffold:crdkustomizewebhookpatch
+
+# [CERTMANAGER] To enable webhook, uncomment all the sections with [CERTMANAGER] prefix.
+# patches here are for enabling the CA injection for each CRD
+#- patches/cainjection_in_devices.yaml
+#- patches/cainjection_in_deviceclaims.yaml
+#- patches/cainjection_in_deviceservices.yaml
+#- patches/cainjection_in_devicemodels.yaml
+#- patches/cainjection_in_devicevisitors.yaml
+#- patches/cainjection_in_edgexmanagers.yaml
+#+kubebuilder:scaffold:crdkustomizecainjectionpatch
+
+# the following config is for teaching kustomize how to do kustomization for CRDs.
+configurations:
+- kustomizeconfig.yaml

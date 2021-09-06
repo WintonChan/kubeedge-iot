@@ -1,0 +1,62 @@
+domain: kubeedge.io
+layout:
+- go.kubebuilder.io/v3
+multigroup: true
+projectName: kubebuilder
+repo: device
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubeedge.io
+  group: devices
+  kind: Device
+  path: device/apis/devices/v1alpha3
+  version: v1alpha3
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubeedge.io
+  group: devices
+  kind: DeviceService
+  path: device/apis/devices/v1alpha3
+  version: v1alpha3
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubeedge.io
+  group: devices
+  kind: DeviceModel
+  path: device/apis/devices/v1alpha3
+  version: v1alpha3
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubeedge.io
+  group: devices
+  kind: DeviceVisitor
+  path: device/apis/devices/v1alpha3
+  version: v1alpha3
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubeedge.io
+  group: devices
+  kind: EdgeXManager
+  path: device/apis/devices/v1alpha3
+  version: v1alpha3
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: kubeedge.io
+  group: devices
+  kind: DeviceClaim
+  path: device/apis/devices/v1alpha3
+  version: v1alpha3
+version: "3"
