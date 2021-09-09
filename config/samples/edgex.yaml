@@ -1,0 +1,344 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: edgex-core-consul
+    sys: edgex
+  name: edgex-core-consul
+  namespace: kubeedge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edgex-core-consul
+  template:
+    metadata:
+      labels:
+        app: edgex-core-consul
+    spec:
+      hostname: edgex-core-consul
+      containers:
+        - image: consul:1.9.5
+          name: edgex-core-consul
+          env:
+            - name: CLIENTS_CORE_COMMAND_HOST
+              value: edgex-core-command
+            - name: CLIENTS_CORE_DATA_HOST
+              value: edgex-core-data
+            - name: CLIENTS_CORE_METADATA_HOST
+              value: edgex-core-metadata
+            - name: CLIENTS_SUPPORT_NOTIFICATIONS_HOST
+              value: edgex-support-notifications
+            - name: CLIENTS_SUPPORT_SCHEDULER_HOST
+              value: edgex-support-scheduler
+            - name: DATABASES_PRIMARY_HOST
+              value: edgex-redis
+            - name: EDGEX_SECURITY_SECRET_STORE
+              value: "false"
+            - name: MESSAGEQUEUE_HOST
+              value: edgex-redis
+            - name: REGISTRY_HOST
+              value: edgex-core-consul
+            - name: SERVICE_HOST
+              value: edgex-core-data
+          ports:
+            - hostPort: 8500
+              containerPort: 8500
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: edgex-core-consul
+    sys: edgex
+  name: edgex-core-consul
+  namespace: kubeedge
+spec:
+  ports:
+    - name: http-0
+      port: 8500
+      targetPort: 8500
+      protocol: TCP
+  selector:
+    app: edgex-core-consul
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: edgex-redis
+    sys: edgex
+  name: edgex-redis
+  namespace: kubeedge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edgex-redis
+  template:
+    metadata:
+      labels:
+        app: edgex-redis
+    spec:
+      hostname: edgex-redis
+      containers:
+        - image: redis:6.2.4-alpine
+          name: edgex-redis
+          env:
+            - name: CLIENTS_CORE_COMMAND_HOST
+              value: edgex-core-command
+            - name: CLIENTS_CORE_DATA_HOST
+              value: edgex-core-data
+            - name: CLIENTS_CORE_METADATA_HOST
+              value: edgex-core-metadata
+            - name: CLIENTS_SUPPORT_NOTIFICATIONS_HOST
+              value: edgex-support-notifications
+            - name: CLIENTS_SUPPORT_SCHEDULER_HOST
+              value: edgex-support-scheduler
+            - name: DATABASES_PRIMARY_HOST
+              value: edgex-redis
+            - name: EDGEX_SECURITY_SECRET_STORE
+              value: "false"
+            - name: MESSAGEQUEUE_HOST
+              value: edgex-redis
+            - name: REGISTRY_HOST
+              value: edgex-core-consul
+          ports:
+            - containerPort: 6379
+              hostPort: 6379
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: edgex-redis
+    sys: edgex
+  name: edgex-redis
+  namespace: kubeedge
+spec:
+  ports:
+    - name: tcp-0
+      port: 6379
+      targetPort: 6379
+      protocol: TCP
+  selector:
+    app: edgex-redis
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: edgex-core-metadata
+    sys: edgex
+  name: edgex-core-metadata
+  namespace: kubeedge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edgex-core-metadata
+  template:
+    metadata:
+      labels:
+        app: edgex-core-metadata
+    spec:
+      hostname: edgex-core-metadata
+      containers:
+        - image: edgexfoundry/core-metadata:2.0.0
+          name: edgex-core-metadata
+          env:
+            - name: CLIENTS_CORE_COMMAND_HOST
+              value: edgex-core-command
+            - name: CLIENTS_CORE_DATA_HOST
+              value: edgex-core-data
+            - name: CLIENTS_CORE_METADATA_HOST
+              value: edgex-core-metadata
+            - name: CLIENTS_SUPPORT_NOTIFICATIONS_HOST
+              value: edgex-support-notifications
+            - name: CLIENTS_SUPPORT_SCHEDULER_HOST
+              value: edgex-support-scheduler
+            - name: DATABASES_PRIMARY_HOST
+              value: edgex-redis
+            - name: EDGEX_SECURITY_SECRET_STORE
+              value: "false"
+            - name: MESSAGEQUEUE_HOST
+              value: edgex-redis
+            - name: REGISTRY_HOST
+              value: edgex-core-consul
+            - name: NOTIFICATIONS_SENDER
+              value: edgex-core-metadata
+            - name: SERVICE_HOST
+              value: edgex-core-metadata
+          ports:
+            - containerPort: 59881
+              hostPort: 59881
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: edgex-core-metadata
+    sys: edgex
+  name: edgex-core-metadata
+  namespace: kubeedge
+spec:
+  ports:
+    - name: http-0
+      port: 59881
+      targetPort: 59881
+      protocol: TCP
+  selector:
+    app: edgex-core-metadata
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: edgex-core-data
+    sys: edgex
+  name: edgex-core-data
+  namespace: kubeedge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edgex-core-data
+  template:
+    metadata:
+      labels:
+        app: edgex-core-data
+    spec:
+      hostname: edgex-core-data
+      containers:
+        - image: edgexfoundry/core-data:2.0.0
+          name: edgex-core-data
+          env:
+            - name: CLIENTS_CORE_COMMAND_HOST
+              value: edgex-core-command
+            - name: CLIENTS_CORE_DATA_HOST
+              value: edgex-core-data
+            - name: CLIENTS_CORE_METADATA_HOST
+              value: edgex-core-metadata
+            - name: CLIENTS_SUPPORT_NOTIFICATIONS_HOST
+              value: edgex-support-notifications
+            - name: CLIENTS_SUPPORT_SCHEDULER_HOST
+              value: edgex-support-scheduler
+            - name: DATABASES_PRIMARY_HOST
+              value: edgex-redis
+            - name: EDGEX_SECURITY_SECRET_STORE
+              value: "false"
+            - name: MESSAGEQUEUE_HOST
+              value: edgex-redis
+            - name: REGISTRY_HOST
+              value: edgex-core-consul
+            - name: SERVICE_HOST
+              value: edgex-core-data
+          ports:
+            - containerPort: 59880
+              hostPort: 59880
+            - containerPort: 5563
+              hostPort: 5563
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: edgex-core-data
+    sys: edgex
+  name: edgex-core-data
+  namespace: kubeedge
+spec:
+  ports:
+    - name: http-0
+      port: 59880
+      targetPort: 59880
+      protocol: TCP
+    - name: http-1
+      port: 5563
+      targetPort: 5563
+      protocol: TCP
+  selector:
+    app: edgex-core-data
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: edgex-core-command
+    sys: edgex
+  name: edgex-core-command
+  namespace: kubeedge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edgex-core-command
+  template:
+    metadata:
+      labels:
+        app: edgex-core-command
+    spec:
+      hostname: edgex-core-command
+      containers:
+        - image: edgexfoundry/core-command:2.0.0
+          name: edgex-core-command
+          env:
+            - name: CLIENTS_CORE_COMMAND_HOST
+              value: edgex-core-command
+            - name: CLIENTS_CORE_DATA_HOST
+              value: edgex-core-data
+            - name: CLIENTS_CORE_METADATA_HOST
+              value: edgex-core-metadata
+            - name: CLIENTS_SUPPORT_NOTIFICATIONS_HOST
+              value: edgex-support-notifications
+            - name: CLIENTS_SUPPORT_SCHEDULER_HOST
+              value: edgex-support-scheduler
+            - name: DATABASES_PRIMARY_HOST
+              value: edgex-redis
+            - name: EDGEX_SECURITY_SECRET_STORE
+              value: "false"
+            - name: MESSAGEQUEUE_HOST
+              value: edgex-redis
+            - name: REGISTRY_HOST
+              value: edgex-core-consul
+            - name: SERVICE_HOST
+              value: edgex-core-command
+          ports:
+            - containerPort: 59882
+              hostPort: 59882
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: edgex-core-command
+    sys: edgex
+  name: edgex-core-command
+  namespace: kubeedge
+spec:
+  ports:
+    - name: http-0
+      port: 59882
+      targetPort: 59882
+      protocol: TCP
+  selector:
+    app: edgex-core-command
