@@ -1,15 +1,13 @@
-
----
+# permissions for end users to edit deviceprofiles.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  creationTimestamp: null
-  name: manager-role
+  name: devicemodel-editor-role
 rules:
 - apiGroups:
   - devices.kubeedge.io
   resources:
-  - devices
+  - devicemodels
   verbs:
   - create
   - delete
@@ -21,14 +19,6 @@ rules:
 - apiGroups:
   - devices.kubeedge.io
   resources:
-  - devices/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - devices.kubeedge.io
-  resources:
-  - devices/status
+  - devicemodels/status
   verbs:
   - get
-  - patch
-  - update

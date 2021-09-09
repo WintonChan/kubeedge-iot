@@ -1,15 +1,13 @@
-
----
+# permissions for end users to edit devicevisitors.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  creationTimestamp: null
-  name: manager-role
+  name: deviceaccess-editor-role
 rules:
 - apiGroups:
   - devices.kubeedge.io
   resources:
-  - devices
+  - deviceaccesses
   verbs:
   - create
   - delete
@@ -21,14 +19,6 @@ rules:
 - apiGroups:
   - devices.kubeedge.io
   resources:
-  - devices/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - devices.kubeedge.io
-  resources:
-  - devices/status
+  - deviceaccesses/status
   verbs:
   - get
-  - patch
-  - update

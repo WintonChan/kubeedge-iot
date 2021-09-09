@@ -3,11 +3,8 @@
 # It should be run by config/default
 resources:
 - bases/devices.kubeedge.io_devices.yaml
-- bases/devices.kubeedge.io_deviceclaims.yaml
-- bases/devices.kubeedge.io_deviceservices.yaml
 - bases/devices.kubeedge.io_devicemodels.yaml
-- bases/devices.kubeedge.io_devicevisitors.yaml
-- bases/devices.kubeedge.io_edgexmanagers.yaml
+- bases/devices.kubeedge.io_deviceaccesses.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
