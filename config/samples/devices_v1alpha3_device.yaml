@@ -1,0 +1,25 @@
+apiVersion: devices.kubeedge.io/v1alpha3
+kind: Device
+metadata:
+  name: random-boolean-device
+  #  description: "Example of Device Virtual"
+  labels:
+    "edgex-0": device-virtual-example
+spec:
+  # Add fields here
+  model: devicemodel-sample
+  deviceAccessRef:
+    apiVersion: devices.kubeedge.io/v1alpha3
+    kind: DeviceAccess
+    name: random-boolean-device-visitor
+  service:
+    deviceService: device-virtual
+    metadata: edgex-core-metadata
+    command: edgex-core-command
+  protocol:
+    name: other
+    address: device-virtual-bool-01
+    type: "300"
+  commands:
+    - name: Bool
+      value: "true"

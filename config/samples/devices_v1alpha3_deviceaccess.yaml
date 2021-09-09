@@ -1,0 +1,18 @@
+apiVersion: devices.kubeedge.io/v1alpha3
+kind: DeviceAccess
+metadata:
+  name: random-boolean-device-visitor
+#    description: "Example of Device Virtual"
+#    labels:
+#      "edgex-0": device-virtual-example
+spec:
+  # Add fields here
+  parameters:
+    - name:  EnableRandomization_Bool
+      parameter:
+        primaryTable: "COILS"
+        startingAddress: "1"
+    - name:  Bool
+      parameter:
+        primaryTable: "HOLDING_REGISTERS"
+        startingAddress: "3"

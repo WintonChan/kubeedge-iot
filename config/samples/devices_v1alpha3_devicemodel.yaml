@@ -1,0 +1,22 @@
+apiVersion: devices.kubeedge.io/v1alpha3
+kind: DeviceModel
+metadata:
+  name: devicemodel-sample
+#  manufacturer: "IOTech"
+#  desricption: "Example of Device-Virtual"
+#  model: "Device-Virtual-01"
+spec:
+  # Add fields here
+  properties:
+  - name: EnableRandomization_Bool
+    description: "used to decide whether to re-generate a random value"
+    mutable: true
+    type: "Bool"
+    readWrite: "W"
+    defaultValue: "true"
+  - name: Bool
+    description: "Generate random boolean value"
+    mutable: true
+    type: "Bool"
+    readWrite: "RW"
+    defaultValue: "true"
